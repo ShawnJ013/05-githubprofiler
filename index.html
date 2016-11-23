@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GitHub Profiler</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.min.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <div class="container" ng-controller="GitHubProfilerController as vm">
+        <div class="well">
+            <h1>GitHub Profiler</h1>
+            <p class="lead">Find out information about my Github user!</p>
+        </div>
+        <form ng-submit="vm.callGitHubApi()">
+        <div class="input-group">
+           
+                <input type="text" class="form-control" placeholder="Enter Github User Name " ng-model="vm.username"></input>
+                <span class="input-group-btn">
+          
+		        <button class="btn btn-default" ng-click="vm.callGitHubApi()" type="button">Go!</button>
+	      	</span>
+        </div>
+        </form>
+        <div class="row">
+            <div class="col-sm-3">
+                <img ng-src="{{vm.userinfo.avatar_url}}" class="img-circle img-responsive">
+                <b>{{vm.userinfo.name}}</b> {{vm.userinfo.login}}
+                <p>{{vm.userinfo.location}}</p>
+                <p ng-if="github.data.hirable">Available for Hire</p>
+                <p ng-if="github.data.hirable">Unavailable for Hire</p>
+                <p ng-class=vm.color>{{vm.userinfo.hirable}}</p>
+                <p id="hide" style="visibility: hidden;">Slining code since {{vm.userinfo.created_at | date: 'MMM d, y '}}</p>
+                <a href="https://github.com/{{vm.userinfo.login}}?tab=respositories">
+                    <button class="btn btn-default" type="button" ng-click="vm.callGitHubApi()" id="hiden" style="visibility: hidden;">View Respositories</button>
+                </a>
+            </div>
+            <!-- creating a row sm-9 with and nesting a child within four sm-4 columns-->
+            <!-- binding userinfo to followers -->
+            <div class="col-sm-9">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="panel-body">
+                            <div class="well">
+                                <p class="lead">Followers</p>
+                                <p>{{vm.userinfo.followers}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel-body">
+                            <div class="well">
+                                <p class="lead">Followers</p>
+                                <p>{{vm.userinfo.followers}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="panel-body">
+                            <div class="well">
+                                <p class="lead">Public Repositories</p>
+                                <p>{{vm.userinfo.public_repos}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery -->
+        <script src="//code.jquery.com/jquery.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="app/app.module.js"></script>
+        <script src="app/github/githubprofiler.controller.js"></script>
+</body>
+
+</html>
